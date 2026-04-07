@@ -1,0 +1,8 @@
+.container { padding: 20px; font-family: Arial, sans-serif; }
+.titulo { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+.tabla-container { margin-top: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden; }
+.tabla-naylamp { width: 100%; border-collapse: collapse; background: white; }
+.tabla-naylamp th { background-color: #3498db; color: white; padding: 12px; text-align: left; }
+.tabla-naylamp td { padding: 12px; border-bottom: 1px solid #eee; color: #34495e; }
+.tabla-naylamp tr:hover { background-color: #f9f9f9; }
+.mensaje-vacio { text-align: center; padding: 20px; font-style: italic; color: #7f8c8d; }

@@ -1,0 +1,31 @@
+<div class="container">
+  <h2 class="titulo">Gestión de Clientes - Hotel Naylamp</h2>
+  <p class="contador">Total en base de datos: {{ clientes().length }}</p>
+  
+  <div class="tabla-container">
+    <table class="tabla-naylamp">
+      <thead>
+        <tr>
+          <th>Documento</th>
+          <th>Nombre Completo</th>
+          <th>Nacionalidad</th>
+          <th>Ubicación</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (cliente of clientes(); track cliente.idCliente) {
+          <tr>
+            <td><strong>{{ cliente.tipoDocumento }}:</strong> {{ cliente.documento }}</td>
+            <td>{{ cliente.nombre }} {{ cliente.apellidoPaterno }} {{ cliente.apellidoMaterno }}</td>
+            <td>{{ cliente.nacionalidad }}</td>
+            <td>{{ cliente.distrito }} ({{ cliente.provincia }})</td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="4" class="mensaje-vacio">Esperando datos de la base de datos...</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+# =========================
+# GITIGNORE MAESTRO - HOTEL NAYLAMP
+# =========================
+
+# 1. Archivos de VS Code y Editores
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# 2. Archivos del Sistema Operativo
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# 3. Seguros (Por si los gitignore internos fallan)
+# Backend (Spring Boot / Maven)
+backend/target/
+*.jar
+*.war
+*.log
+
+# Frontend (Angular / Node)
+frontend/node_modules/
+frontend/dist/
+frontend/out-tsc/
+frontend/.angular/
