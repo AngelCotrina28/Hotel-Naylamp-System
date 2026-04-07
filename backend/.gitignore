@@ -1,0 +1,14 @@
+# Archivos compilados de Java
+target/
+*.class
+
+# Configuraciones de VS Code y Eclipse
+.vscode/
+.settings/
+.project
+.classpath
+.factorypath
+
+# Archivos de entorno y logs
+.env
+*.log
