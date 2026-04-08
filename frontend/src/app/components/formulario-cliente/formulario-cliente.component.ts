@@ -26,7 +26,7 @@ export class FormularioClienteComponent {
     departamento: [''],
     provincia: [''],
     distrito: [''],
-    nacionalidad: ['PERUANA', Validators.required]
+    nacionalidad: ['PERUANO', Validators.required]
   });
 
   // Método que se ejecuta al darle al botón "Guardar"
