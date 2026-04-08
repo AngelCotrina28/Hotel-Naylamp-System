@@ -1,6 +1,7 @@
 package com.hotelnaylamp.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,10 +32,10 @@ public class ClienteController {
 
     @GetMapping("/buscar/{numDocumento}")
     public ResponseEntity<Cliente> obtenerPorDocumento(@PathVariable String numDocumento){
-        Cliente clienteEncontrado =  clienteService.buscarPorDocumento(numDocumento);
+        Optional<Cliente> cajaClienteEncontrado =  clienteService.buscarPorDocumento(numDocumento);
 
-        if(clienteEncontrado!=null){
-            return ResponseEntity.ok(clienteEncontrado);
+        if(cajaClienteEncontrado.isPresent()){
+            return ResponseEntity.ok(cajaClienteEncontrado.get());
         } else {
             return ResponseEntity.notFound().build();
         }

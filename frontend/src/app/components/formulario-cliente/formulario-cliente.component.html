@@ -1,0 +1,53 @@
+<div class="form-container">
+  <h3>Registrar Nuevo Cliente</h3>
+  
+  <form [formGroup]="clienteForm" (ngSubmit)="guardarCliente()" class="grid-form">
+    
+    <div class="campo">
+      <label>Tipo Doc.</label>
+      <select formControlName="tipoDocumento">
+        <option value="DNI">DNI</option>
+        <option value="PASAPORTE">Pasaporte</option>
+        <option value="CARNET_EXT">Carnet Ext.</option>
+      </select>
+    </div>
+
+    <div class="campo">
+      <label>Número de Documento *</label>
+      <input type="text" formControlName="documento" placeholder="Ej. 74839201">
+      @if (clienteForm.get('documento')?.invalid && clienteForm.get('documento')?.touched) {
+        <small class="error">El documento es obligatorio (Mín. 8 caracteres).</small>
+      }
+    </div>
+
+    <div class="campo">
+      <label>Nombres *</label>
+      <input type="text" formControlName="nombre">
+    </div>
+
+    <div class="campo">
+      <label>Apellido Paterno *</label>
+      <input type="text" formControlName="apellidoPaterno">
+    </div>
+
+    <div class="campo">
+      <label>Apellido Materno *</label>
+      <input type="text" formControlName="apellidoMaterno">
+    </div>
+
+    <div class="campo">
+      <label>Nacionalidad</label>
+      <input type="text" formControlName="nacionalidad">
+    </div>
+
+    <div class="campo campo-largo">
+      <label>Dirección *</label>
+      <input type="text" formControlName="direccion">
+    </div>
+
+    <div class="acciones campo-largo">
+      <button type="submit" class="btn-guardar">Guardar Cliente</button>
+    </div>
+
+  </form>
+</div>
