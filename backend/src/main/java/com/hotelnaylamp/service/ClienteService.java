@@ -21,6 +21,9 @@ public class ClienteService {
     }
 
     public void guardar(Cliente cliente){
+        if (clienteRepository.existsByDocumento(cliente.getDocumento())) {
+            throw new RuntimeException("El numero de documento ya esta registrado en el sistema.");
+        }
         clienteRepository.save(cliente);
     }
 

@@ -46,6 +46,8 @@ export class FormularioClienteComponent {
     } else {
       // Si faltan datos, marcamos todo como "tocado" para que salten las alertas rojas
       this.clienteForm.markAllAsTouched();
+      alert('Faltan llenar campos obligatorios o el DNI es muy corto.');
+      console.log('Estado del formulario:', this.clienteForm.value);
     }
   }
 }
