@@ -1,0 +1,65 @@
+<div class="dashboard-container">
+  
+  <div class="hotel-grid-section">
+    <h2>Estado de Habitaciones</h2>
+    
+    <div class="edificio">
+      @for (piso of pisos; track piso) {
+        <div class="piso-row">
+          <div class="piso-label">Piso {{ piso }}</div>
+          
+          <div class="habitaciones-grid">
+            @for (hab of obtenerHabitacionesPorPiso(piso); track hab.numero) {
+              
+              <div 
+                class="habitacion-card" 
+                [ngClass]="{'disponible': hab.estado === 'DISPONIBLE', 'ocupada': hab.estado === 'OCUPADA'}"
+                (click)="seleccionarHabitacion(hab)">
+                <span class="hab-numero">{{ hab.numero }}</span>
+                <span class="hab-estado">{{ hab.estado }}</span>
+              </div>
+              
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="panel-reserva-section">
+    
+    @if (!habitacionSeleccionada) {
+      <div class="placeholder-panel">
+        <h3>Panel de Reserva</h3>
+        <p>Haz clic en una habitación para gestionar su reserva o registrar un cliente.</p>
+      </div>
+    } 
+    @else {
+      <div class="reserva-activa">
+        
+        <div class="header-reserva">
+          <h3>Habitación {{ habitacionSeleccionada.numero }}</h3>
+          <span class="badge" [ngClass]="{'bg-verde': habitacionSeleccionada.estado === 'DISPONIBLE', 'bg-rojo': habitacionSeleccionada.estado === 'OCUPADA'}">
+            {{ habitacionSeleccionada.estado }}
+          </span>
+          <button class="btn-cerrar" (click)="cerrarPanel()">✖</button>
+        </div>
+
+        <div class="detalle-precio">
+          <p><strong>Precio base:</strong> S/ {{ habitacionSeleccionada.precio }}.00 por noche</p>
+        </div>
+
+        <div class="modulo-cliente">
+          <app-formulario-cliente></app-formulario-cliente>
+        </div>
+
+        <div class="modulo-reserva-temporal">
+          <button class="btn-confirmar-reserva" disabled>Confirmar Reserva (Próximamente)</button>
+        </div>
+
+      </div>
+    }
+
+  </div>
+
+</div>
