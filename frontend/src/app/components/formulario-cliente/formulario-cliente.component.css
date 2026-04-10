@@ -1,11 +1,81 @@
-.form-container { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); max-width: 600px; margin: 20px auto; }
-h3 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; margin-bottom: 20px; }
-.grid-form { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-.campo { display: flex; flex-direction: column; }
-.campo-largo { grid-column: span 2; }
-label { font-weight: bold; margin-bottom: 5px; color: #34495e; font-size: 0.9em; }
-input, select { padding: 8px; border: 1px solid #bdc3c7; border-radius: 4px; outline: none; }
-input:focus, select:focus { border-color: #3498db; }
-.error { color: #e74c3c; font-size: 0.8em; margin-top: 4px; }
-.btn-guardar { background: #27ae60; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
-.btn-guardar:hover { background: #2ecc71; }
+/* Contenedor limpio y ajustado a su padre */
+.form-compacto {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-color: transparent;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-row {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* El 'min-width: 0' evita que el input expanda la columna y rompa el diseño */
+.col-50 { flex: 1; min-width: 0; } 
+.col-33 { flex: 1; min-width: 0; }
+.ancho-completo { width: 100%; min-width: 0; }
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Títulos sutiles y modernos */
+label {
+  font-weight: 600;
+  color: #475569;
+  margin-bottom: 4px;
+  font-size: 0.75rem;
+}
+
+/* Inputs controlados para que NO engorden */
+input {
+  width: 100%;
+  box-sizing: border-box; /* LA CLAVE para que el padding sea hacia adentro */
+  padding: 7px 8px;
+  border: 1px solid #cbd5e1;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  color: #1e293b;
+  background-color: #f8fafc;
+  transition: all 0.2s ease;
+}
+
+input:focus {
+  background-color: #ffffff;
+  border-color: #3b82f6;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+}
+
+/* Botón profesional */
+.btn-guardar {
+  margin-top: 8px;
+  padding: 10px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.btn-guardar:hover:not(:disabled) {
+  background-color: #2563eb;
+}
+
+.btn-guardar:disabled {
+  background-color: #cbd5e1;
+  color: #94a3b8;
+  cursor: not-allowed;
+}

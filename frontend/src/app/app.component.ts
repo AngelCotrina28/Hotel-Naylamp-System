@@ -6,7 +6,7 @@ import { DashboardHabitacionesComponent } from './components/dashboard-habitacio
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ListaClientesComponent,FormularioClienteComponent,DashboardHabitacionesComponent],// <--- Verifica que esté aquí
+  imports: [DashboardHabitacionesComponent],// <--- Verifica que esté aquí
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

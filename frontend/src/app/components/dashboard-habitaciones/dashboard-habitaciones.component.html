@@ -4,21 +4,21 @@
     <h2>Estado de Habitaciones</h2>
     
     <div class="edificio">
-      @for (piso of pisos; track piso) {
+      @for (nivel of edificio; track nivel.numeroPiso) {
         <div class="piso-row">
-          <div class="piso-label">Piso {{ piso }}</div>
+          <div class="piso-label">Piso {{ nivel.numeroPiso }}</div>
           
           <div class="habitaciones-grid">
-            @for (hab of obtenerHabitacionesPorPiso(piso); track hab.numero) {
-              
-              <div 
-                class="habitacion-card" 
-                [ngClass]="{'disponible': hab.estado === 'DISPONIBLE', 'ocupada': hab.estado === 'OCUPADA'}"
+            @for (hab of nivel.cuartos; track hab.numero) {
+              <div class="habitacion-card" 
+                [ngClass]="{
+                  'disponible': hab.estado === 'DISPONIBLE', 
+                  'ocupada': hab.estado === 'OCUPADA',
+                  'seleccionada': esSeleccionada(hab)  }"
                 (click)="seleccionarHabitacion(hab)">
                 <span class="hab-numero">{{ hab.numero }}</span>
                 <span class="hab-estado">{{ hab.estado }}</span>
               </div>
-              
             }
           </div>
         </div>
@@ -26,40 +26,74 @@
     </div>
   </div>
 
-  <div class="panel-reserva-section">
-    
-    @if (!habitacionSeleccionada) {
-      <div class="placeholder-panel">
-        <h3>Panel de Reserva</h3>
-        <p>Haz clic en una habitación para gestionar su reserva o registrar un cliente.</p>
+  @if (habitacionesReserva.length > 0) {
+    <div class="panel-flotante">
+      
+      <div class="stepper">
+        <div class="step" [class.active]="pasoActual === 1">1. Detalles</div>
+        <div class="step-line"></div>
+        <div class="step" [class.active]="pasoActual === 2">2. Cliente</div>
       </div>
-    } 
-    @else {
-      <div class="reserva-activa">
-        
-        <div class="header-reserva">
-          <h3>Habitación {{ habitacionSeleccionada.numero }}</h3>
-          <span class="badge" [ngClass]="{'bg-verde': habitacionSeleccionada.estado === 'DISPONIBLE', 'bg-rojo': habitacionSeleccionada.estado === 'OCUPADA'}">
-            {{ habitacionSeleccionada.estado }}
-          </span>
-          <button class="btn-cerrar" (click)="cerrarPanel()">✖</button>
-        </div>
 
-        <div class="detalle-precio">
-          <p><strong>Precio base:</strong> S/ {{ habitacionSeleccionada.precio }}.00 por noche</p>
-        </div>
-
-        <div class="modulo-cliente">
-          <app-formulario-cliente></app-formulario-cliente>
-        </div>
-
-        <div class="modulo-reserva-temporal">
-          <button class="btn-confirmar-reserva" disabled>Confirmar Reserva (Próximamente)</button>
-        </div>
-
+      <div class="header-reserva">
+        <h3>Nueva Reserva</h3>
+        <button class="btn-cerrar" (click)="cerrarPanel()">✖</button>
       </div>
-    }
 
-  </div>
+      @if (pasoActual === 1) {
+        <div class="paso-contenido">
+          <div class="tabs-habitaciones">
+            @for (hab of habitacionesReserva; track hab.numero) {
+              <button class="tab-button" 
+                [class.active]="habitacionActiva?.numero === hab.numero"
+                (click)="setTabActiva(hab)">
+                Hab. {{ hab.numero }}
+              </button>
+            }
+          </div>
+
+          @if (habitacionActiva) {
+            <div class="detalle-configuracion">
+              <p class="info-hab">Configurando: <strong>{{ habitacionActiva.categoria.nombre }}</strong></p>
+              
+              <div class="form-grid-reserva">
+                <div class="campo-reserva">
+                  <label>Tipo de Alquiler</label>
+                  <select>
+                    <option>Por Día</option>
+                    <option>Por Horas</option>
+                  </select>
+                </div>
+                <div class="campo-reserva">
+                  <label>Cantidad</label>
+                  <input type="number" value="1">
+                </div>
+                <div class="campo-reserva">
+                  <label>Precio Unitario</label>
+                  <input type="number" [value]="habitacionActiva.categoria.precioBase">
+                </div>
+              </div>
+              <div class="subtotal-hab">
+                Subtotal: <strong>S/ {{ habitacionActiva.categoria.precioBase }}.00</strong>
+              </div>
+            </div>
+          }
+
+          <button class="btn-primario" (click)='siguientePaso()'>Continuar al Cliente →</button>
+        </div>
+      }
+
+      @if (pasoActual === 2) {
+        <div class="paso-contenido">
+          <button class="btn-regresar" (click)="anteriorPaso()">← Volver a detalles</button>
+          <div class="modulo-cliente">
+            <app-formulario-cliente></app-formulario-cliente>
+          </div>
+          <button class="btn-confirmar-final">Finalizar y Crear Registro</button>
+        </div>
+      }
+
+    </div>
+  }
 
 </div>
